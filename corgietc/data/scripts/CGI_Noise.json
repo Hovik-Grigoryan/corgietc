@@ -23,7 +23,8 @@
             "pixelSize": 1.3e-05,
             "QE": "$CGI_NOISE_DATA_DIR/Photometry/DET_QE_e2v_Spec.csv",
             "DET_QE_Data": "$CGI_NOISE_DATA_DIR/Photometry/DET_QE_e2v_Spec.csv",
-            "DET_CBE_Data": "$CGI_NOISE_DATA_DIR/Photometry/DET_CBE_250530.csv"
+            "DET_CBE_Data": "$CGI_NOISE_DATA_DIR/Photometry/DET_CBE_250530.csv",
+            "matrix": "$CORGIETC_DATA_DIR/matrices/nfov_band1.csv"
         },
         {
             "name": "WF_B4_Imager",
@@ -31,7 +32,8 @@
             "pixelSize": 1.3e-05,
             "QE": "$CGI_NOISE_DATA_DIR/Photometry/DET_QE_e2v_Spec.csv",
             "DET_QE_Data": "$CGI_NOISE_DATA_DIR/Photometry/DET_QE_e2v_Spec.csv",
-            "DET_CBE_Data": "$CGI_NOISE_DATA_DIR/Photometry/DET_CBE_250530.csv"
+            "DET_CBE_Data": "$CGI_NOISE_DATA_DIR/Photometry/DET_CBE_250530.csv",
+            "matrix": "$CORGIETC_DATA_DIR/matrices/nfov_band1.csv"
         },
         {
             "name": "NF_B3_Spec",
@@ -47,7 +49,8 @@
             "Rs": 50,
             "QE": "$CGI_NOISE_DATA_DIR/Photometry/DET_QE_e2v_Spec.csv",
             "DET_QE_Data": "$CGI_NOISE_DATA_DIR/Photometry/DET_QE_e2v_Spec.csv",
-            "DET_CBE_Data": "$CGI_NOISE_DATA_DIR/Photometry/DET_CBE_250530.csv"
+            "DET_CBE_Data": "$CGI_NOISE_DATA_DIR/Photometry/DET_CBE_250530.csv",
+            "matrix": "$CORGIETC_DATA_DIR/matrices/nfov_band1.csv"
         }
     ],
     "starlightSuppressionSystems": [
