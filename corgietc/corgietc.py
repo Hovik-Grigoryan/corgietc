@@ -49,13 +49,15 @@ class corgietc(Nemati):
             Post-processing factor (e.g., 30 for 30x speckle suppression). Only used if
             not set in scienceInstrument input specification definition. Defaults to 2.0
         RefStar_SpectralType (str)
-            Spectral type of the reference star (eg a0v, b3v, a5v, f5v, g0v, g5v, k0v, k5v, m0v, m5v)
+            Spectral type of the reference star (eg a0v, b3v, a5v, f5v, g0v, g5v, k0v,
+            k5v, m0v, m5v)
         RefStar_V_mag (float)
             Visual Magnitude of the reference star
         TimeonRefStar_tRef_per_tTar (float)
             Time on a reference star per target
         contrast_degradation (float)
-            Multiplier for rawcontrast (e.g. 0.5 represents 50% rawcontrast). Defaults to 1.0
+            Multiplier for rawcontrast (e.g. 0.5 represents 50% rawcontrast). Defaults
+            to 1.0
         desiredRate (float)
             Target value for e-/pix/frame. Defaults to 0.1
         tfmin (float)
@@ -115,12 +117,9 @@ class corgietc(Nemati):
         tfmin=3,
         tfmax=100,
         frameThresh=0.5,
-<<<<<<< HEAD
-=======
         RefStar_SpectralType="a0v",
         RefStar_V_mag=2.26,
         TimeonRefStar_tRef_per_tTar=0.25,
->>>>>>> main
         contrast_degradation=1.0,
         forcePhotonCounting=False,
         **specs,
@@ -297,7 +296,9 @@ class corgietc(Nemati):
             inst["DET_QE_Data"] = fl.loadCSVrow(
                 os.path.normpath(os.path.expandvars(inst["DET_QE_Data"]))
             )
-            inst["matrix"] =np.genfromtxt(os.path.normpath(os.path.expandvars(inst["matrix"])), delimiter = ",")
+            inst["matrix"] = np.genfromtxt(
+                os.path.normpath(os.path.expandvars(inst["matrix"])), delimiter=","
+            )
 
     def populate_observingModes_extra(self):
         """Add specific observing mode keywords"""
@@ -377,8 +378,6 @@ class corgietc(Nemati):
             mode["pp_Factor_CBE"] = mode.get(
                 "pp_Factor_CBE", self.default_vals_extra2["pp_Factor_CBE"]
             )
-<<<<<<< HEAD
-=======
 
             # ensure RefStar_SpectralType is in the mode
             mode["RefStar_SpectralType"] = mode.get(
@@ -396,7 +395,6 @@ class corgietc(Nemati):
                 self.default_vals_extra2["TimeonRefStar_tRef_per_tTar"],
             )
 
->>>>>>> main
             # ensure contrast_degradation is in the mode
             mode["contrast_degradation"] = mode.get(
                 "contrast_degradation", self.default_vals_extra2["contrast_degradation"]
@@ -496,13 +494,10 @@ class corgietc(Nemati):
         vmag_greater_than_9 = vmag > 9
         names_greater_than_9 = TL.Name[vmag_greater_than_9]
 
-<<<<<<< HEAD
-        if np.any(vmag_greater_than_9):  # use np.any
-=======
         if np.any(vmag_greater_than_9):
->>>>>>> main
             warnings.warn(
-                f"Integration times for these targets may not be accurate: {names_greater_than_9}"
+                "Integration times for these targets may not be accurate: "
+                f"{names_greater_than_9}"
             )
 
         # get mode elements
@@ -757,7 +752,7 @@ class corgietc(Nemati):
             return C_p << self.inv_s, C_b << self.inv_s, C_sp << self.inv_s, extra
 
         return C_p << self.inv_s, C_b << self.inv_s, C_sp << self.inv_s
-    
+
     def calc_polfrac(self, p_in, _C_p, mode):
         """
         Compute measured polarization fraction p_f for a given intrinsic
@@ -765,12 +760,12 @@ class corgietc(Nemati):
         """
         theta = mode["theta"]
 
-        Pol0  = _C_p * 96.2
+        Pol0 = _C_p * 96.2
         Pol45 = _C_p * 96.5
 
-        I0   = Pol0  / 2 * (1 + p_in * np.cos(2 * theta))
-        I90  = Pol0  / 2 * (1 - p_in * np.cos(2 * theta))
-        I45  = Pol45 / 2 * (1 + p_in * np.sin(2 * theta))
+        I0 = Pol0 / 2 * (1 + p_in * np.cos(2 * theta))
+        I90 = Pol0 / 2 * (1 - p_in * np.cos(2 * theta))
+        I45 = Pol45 / 2 * (1 + p_in * np.sin(2 * theta))
         I135 = Pol45 / 2 * (1 - p_in * np.sin(2 * theta))
 
         I_in = (I0 + I90 + I45 + I135) / 2
@@ -791,7 +786,6 @@ class corgietc(Nemati):
             p_f = np.sqrt(Q_m**2 + U_m**2) / I_m
 
         return p_f
-
 
     def calc_intTime(self, TL, sInds, fZ, JEZ, dMag, WA, mode, TK=None):
         """Finds integration times of target systems for a specific observing
@@ -840,14 +834,17 @@ class corgietc(Nemati):
                 p_in = mode["polfraction"]
                 p_f = self.calc_polfrac(p_in, _C_p, mode)
                 # theta_f = 0.5*(np.arctan(U_m/Q_m)*180/np.pi)
-            
+
                 if ("Cp_ab" not in mode) or np.isnan(mode["Cp_ab"]):
                     mode["Cp_ab"] = 0
 
                 intTime = (
                     np.true_divide(
                         SNR**2.0 * _C_b,
-                        ((_C_p * p_f) ** 2.0 - (SNR**2 * (_C_sp**2 + mode["Cp_ab"]**2))),
+                        (
+                            (_C_p * p_f) ** 2.0
+                            - (SNR**2 * (_C_sp**2 + mode["Cp_ab"] ** 2))
+                        ),
                     )
                     * self.s2d
                 )
@@ -862,10 +859,8 @@ class corgietc(Nemati):
         intTime[intTime < 0.0] = np.nan
 
         return intTime << u.d
-    
 
     def calc_critical_polfraction(self, TL, sInds, fZ, JEZ, dMag, WA, mode, TK=None):
-
         """
         Returns the critical measured polarization fraction p_in,crit such that
         integration time transitions from undefined to finite.
@@ -885,21 +880,21 @@ class corgietc(Nemati):
             mode["Cp_ab"] = 0
 
         # Critical polarization fraction
-        p_f_crit = SNR * np.sqrt(_C_sp**2 + mode["Cp_ab"]**2) / _C_p
+        p_f_crit = SNR * np.sqrt(_C_sp**2 + mode["Cp_ab"] ** 2) / _C_p
 
         # Anything >1 is physically impossible
         if np.any((p_f_crit <= 0) | (p_f_crit >= 1)):
             return np.nan
-        
+
         def f_root(p_in):
-            return (self.calc_polfrac(p_in, _C_p, mode)- p_f_crit)
-        
+            return self.calc_polfrac(p_in, _C_p, mode) - p_f_crit
+
         if f_root(0) >= 0:
             return 0
 
         if f_root(1) < 0:
             return np.nan
-            
+
         try:
             sol = root_scalar(
                 f_root,
@@ -907,7 +902,7 @@ class corgietc(Nemati):
                 method="brentq",
             )
             return sol.root
-        
+
         except Exception:
             return np.nan
 
