@@ -887,7 +887,7 @@ class corgietc(Nemati):
             return np.nan
 
         def f_root(p_in):
-            return self.calc_polfrac(p_in, _C_p, mode) - p_f_crit
+            return float(self.calc_polfrac(p_in, _C_p, mode)[0] - p_f_crit[0])
 
         if f_root(0) >= 0:
             return 0
