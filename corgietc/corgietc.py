@@ -406,6 +406,9 @@ class corgietc(Nemati):
         syst = mode["syst"]
         lam = mode["lam"]
 
+        # NB: syst["core_area"] returns a value in (l/D)^2 units, which needs to be
+        # converted to square arcseconds by dividing through by the input angle unit
+        # value squared
         omegaPSF = (
             (syst["core_area"](lam, WA) / syst["input_angle_unit_value"] ** 2)
             .decompose()
